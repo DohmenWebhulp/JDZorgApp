@@ -26,12 +26,15 @@ namespace ZorgApp2.Controllers
             return View();
         }
 
-        //De taken uit de algemene takenlijst. Deze moeten verschijnen in een dropdown op de edit klant pagina en op de bezoekplanningspagina.
+        //De taken uit de algemene takenlijst.
+        //Deze moeten verschijnen in een dropdown op de edit klant pagina en op de bezoekplanningspagina.
         private async Task OphalenTaken()
         {
             Taken = await _context.Taak.ToListAsync();
         }
 
+        //De taken die horen bij een specifieke klant.
+        //Deze moeten toegevoegd worden en uiteindelijk ook verschijnen op de edit klant pagina.
         private async Task OphalenKSTaken()
         {
             KSTaken = await _context.KSTaak.ToListAsync();
