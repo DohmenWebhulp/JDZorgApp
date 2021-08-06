@@ -1,0 +1,56 @@
+﻿@model ZorgApp2.Models.Bezoek
+
+@{
+    ViewData["Title"] = "MaakBezoek";
+}
+@{
+    List<Klant> Klanten = ViewData["Klanten"] as List<Klant>;
+    List<Medewerker> Medewerkers = ViewData["Medewerkers"] as List<Medewerker>;
+}
+
+<h1>MaakBezoek</h1>
+
+<h4>Bezoek</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="MaakBezoek">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tijdstip_aanmelden" class="control-label"></label>
+                <input asp-for="Tijdstip_aanmelden" class="form-control" />
+                <span asp-validation-for="Tijdstip_aanmelden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tijdstip_afmelden" class="control-label"></label>
+                <input asp-for="Tijdstip_afmelden" class="form-control" />
+                <span asp-validation-for="Tijdstip_afmelden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MedewerkerId" class="control-label"></label>
+                <select asp-for="MedewerkerId" class="form-control" asp-items="ViewBag.MedewerkerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlannerId" class="control-label"></label>
+                <select asp-for="PlannerId" class="form-control" asp-items="ViewBag.PlannerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="KlantId" class="control-label"></label>
+                <select asp-for="KlantId" class="form-control" asp-items="ViewBag.KlantId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZorgApp2.Models;
-
+using ZorgApp2.Repositories;
 namespace ZorgApp2
 {
     public class Startup
@@ -29,6 +29,8 @@ namespace ZorgApp2
             services.AddDbContext<ZorgAppDbContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+            services.AddScoped<IKlantRepository, KlantRepository>();
+            services.AddScoped<ITaakRepository, TaakRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
