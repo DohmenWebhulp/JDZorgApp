@@ -10,6 +10,7 @@ namespace ZorgApp2.Repositories
         List<Klant> OphalenKlanten();
         Klant OphalenKlant(int Id);
         Klant UpdateKlant(Klant Klant);
+        Klant ToevoegenKlant(Klant Klant);
         Klant VerwijderKlant(int Id);
 
     }

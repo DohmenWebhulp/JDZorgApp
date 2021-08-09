@@ -31,6 +31,8 @@ namespace ZorgApp2
             services.AddControllersWithViews();
             services.AddScoped<IKlantRepository, KlantRepository>();
             services.AddScoped<ITaakRepository, TaakRepository>();
+            services.AddScoped<IMedewerkerRepository, MedewerkerRepository>();
+            services.AddScoped<IBezoekRepository, BezoekRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

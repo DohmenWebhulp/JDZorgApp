@@ -13,13 +13,10 @@ namespace ZorgApp2.Repositories
         {
             _context = context;
         }
-        public Taak taak { get; set; }
-        public List<Taak> taken { get; set; }
-        public KSTaak kstaak { get; set; }
 
         public Taak OphalenTaak(int id)
         {
-            taak = _context.Taak.FirstOrDefault(u => u.Id == id);
+            Taak taak = _context.Taak.FirstOrDefault(u => u.Id == id);
             return taak;
         }
 
@@ -27,13 +24,13 @@ namespace ZorgApp2.Repositories
         //Deze moeten verschijnen in een dropdown op de edit klant pagina en op de bezoekplanningspagina.
         public List<Taak> OphalenTaken()
         {
-            taken = _context.Taak.ToList();
+            List<Taak> taken = _context.Taak.ToList();
             return taken;
         }
 
         public KSTaak ToevoegenKSTaak(int klantId, int taakId)
         {
-            kstaak = new KSTaak()
+            KSTaak kstaak = new KSTaak()
             {
                 TaakId = taakId,
                 KlantId = klantId
@@ -48,7 +45,7 @@ namespace ZorgApp2.Repositories
         {
             System.Diagnostics.Debug.WriteLine(kstaakId);
 
-            kstaak = _context.KSTaak.Find(kstaakId);
+            KSTaak kstaak = _context.KSTaak.Find(kstaakId);
 
             if (kstaak != null)
             {
@@ -57,6 +54,20 @@ namespace ZorgApp2.Repositories
             }
 
             return kstaak;
+        }
+
+        public Handeling ToevoegenHandeling(int bezoekId, int taakId)
+        {
+            Handeling handeling = new Handeling()
+            {
+                BezoekId = bezoekId,
+                TaakId = taakId,
+                Uitvoering = false
+            };
+
+            _context.Handeling.Add(handeling);
+            _context.SaveChanges();
+            return handeling;
         }
     }
 }

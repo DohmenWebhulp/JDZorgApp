@@ -23,7 +23,5 @@ namespace ZorgApp2.Models
         public Klant Klant { get; set; }
         public List<Handeling> Handelingen { get; set; }
 
-
-
     }
 }

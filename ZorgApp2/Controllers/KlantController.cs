@@ -40,38 +40,50 @@ namespace ZorgApp2.Controllers
             return View(Klanten);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateKlant(Klant klant)
+        {
+            kr.UpdateKlant(klant);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult ToevoegenKlantForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ToevoegenKlant(Klant klant)
+        {
+            kr.ToevoegenKlant(klant);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult VerwijderKlant(Klant klant)
+        {
+            kr.VerwijderKlant(klant.Id);
+            return RedirectToAction("Index");
+        }
+
         //De taken die horen bij een specifieke klant.
         //Deze moeten toegevoegd worden en uiteindelijk ook verschijnen op de edit klant pagina.
 
         [HttpPost]
-        public IActionResult ToevoegenKSTaak(KlantViewModel Model, int taakId)
+        public IActionResult ToevoegenKSTaak(KlantViewModel model, int taakId)
         {
-            var klantId = Model.Klant.Id;
-            var bol = tr.ToevoegenKSTaak(klantId, taakId);
+            var klantId = model.Klant.Id;
+            tr.ToevoegenKSTaak(klantId, taakId);
             return RedirectToAction("EditKlant", new { id = klantId });
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult UpdateKlant(Klant Klant)
+        public IActionResult VerwijderKSTaak(KSTaak kstaak)
         {
-            kr.UpdateKlant(Klant);
-            return RedirectToAction("Index");
-        }
+            var delkstaak = tr.VerwijderKSTaak(kstaak.Id);
 
-        [HttpPost]
-        public IActionResult VerwijderKlant(int klantId)
-        {
-            kr.VerwijderKlant(klantId);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult VerwijderKSTaak(int kstaakId)
-        {
-            var kstaak = tr.VerwijderKSTaak(kstaakId);
-
-            return RedirectToAction("EditKlant", new { id = kstaak.KlantId });
+            return RedirectToAction("EditKlant", new { id = delkstaak.KlantId });
         }
 
     }

@@ -1,56 +1,106 @@
-﻿@model ZorgApp2.Models.Bezoek
+﻿@model ZorgApp2.ViewModel.BezoekPlanViewModel
 
 @{
     ViewData["Title"] = "MaakBezoek";
 }
-@{
-    List<Klant> Klanten = ViewData["Klanten"] as List<Klant>;
-    List<Medewerker> Medewerkers = ViewData["Medewerkers"] as List<Medewerker>;
-}
 
-<h1>MaakBezoek</h1>
+<h1>Bezoek Plannen</h1>
 
-<h4>Bezoek</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="MaakBezoek">
+        <form asp-action="ToevoegenBezoek">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Datum" class="control-label"></label>
-                <input asp-for="Datum" class="form-control" />
-                <span asp-validation-for="Datum" class="text-danger"></span>
+                <label asp-for="Bezoek.Datum" class="control-label"></label>
+                <input asp-for="Bezoek.Datum" class="form-control" />
+                <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Tijdstip_aanmelden" class="control-label"></label>
-                <input asp-for="Tijdstip_aanmelden" class="form-control" />
-                <span asp-validation-for="Tijdstip_aanmelden" class="text-danger"></span>
+                <label asp-for="Bezoek.MedewerkerId" class="control-label"></label>
+                <select asp-for="Bezoek.MedewerkerId" class="form-control" asp-items="ViewBag.MedewerkerId">
+                    @foreach (Medewerker mw in Model.Medewerkers)
+                    {
+                        <option>@mw.Gebruikersnaam</option>
+                    }
+                </select>
+            </div>
+            <!--Planner.Id komt met de BezoekPlanViewModel data mee-->
+            <input type="hidden" asp-for="Bezoek.PlannerId" />
+            <div class="form-group">
+                <label asp-for="Bezoek.KlantId" class="control-label"></label>
+                <select asp-for="Bezoek.KlantId" class="form-control" asp-items="ViewBag.KlantId">
+                    @foreach (Klant klant in Model.Klanten)
+                    {
+                        <option>@klant.Naam</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="Tijdstip_afmelden" class="control-label"></label>
-                <input asp-for="Tijdstip_afmelden" class="form-control" />
-                <span asp-validation-for="Tijdstip_afmelden" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MedewerkerId" class="control-label"></label>
-                <select asp-for="MedewerkerId" class="form-control" asp-items="ViewBag.MedewerkerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlannerId" class="control-label"></label>
-                <select asp-for="PlannerId" class="form-control" asp-items="ViewBag.PlannerId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="KlantId" class="control-label"></label>
-                <select asp-for="KlantId" class="form-control" asp-items="ViewBag.KlantId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Bezoek Plannen" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-12">
+        <table id="mytableH">
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        Omschrijving
+                    </th>
+                    <th>
+                        Extra_info
+                    </th>
+                    <th>
+                        Uitgevoerd?
+                    </th>
+                    <th>
+                        Verwijderen
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach (Handeling handeling in Model.Bezoek.Handelingen)
+                {
+                <tr>
+                    <td>
+                        @handeling.Id
+                    </td>
+                    <td>
+                        @handeling.Taak.Omschrijving
+                    </td>
+                    <td>
+                        @handeling.Taak.Extra_info
+                    </td>
+                    <td>
+                        @handeling.Uitvoering
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("VerwijderHandeling", "Bezoek", new { id = handeling.Id }))
+                        {
+                            <input type="submit" value="Verwijderen" class="btn btn-secondary" />
+                        }
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTableH').DataTable();
+        });
+    </script>
+}

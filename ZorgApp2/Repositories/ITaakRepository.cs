@@ -11,5 +11,6 @@ namespace ZorgApp2.Repositories
         Taak OphalenTaak(int Id);
         KSTaak ToevoegenKSTaak(int klantId, int taakId);
         KSTaak VerwijderKSTaak(int kstaakId);
+        Handeling ToevoegenHandeling(int bezoekId, int taakId);
     }
 }
