@@ -11,5 +11,6 @@ namespace ZorgApp2.Models
         public string Omschrijving { get; set; }
         public string Extra_info { get; set; }
         public List<Handeling> Handelingen { get; set; }
+        public List<KSTaak> KSTaken { get; set; }
     }
 }

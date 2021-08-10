@@ -58,6 +58,18 @@ namespace ZorgApp2.Controllers
             };
             return View(BPVmodel);
         }
+        
+        [HttpPost]
+        public IActionResult KlantDoorgeven(BezoekPlanViewModel bpv)
+        {
+            Klant klant = kr.OphalenKlant(bpv.Bezoek.KlantId);
+            foreach(KSTaak kstaak in klant.KSTaken)
+            {
+                tr.ToevoegenHandeling(bpv.Bezoek.Id, kstaak.TaakId);
+            }
+            //br.UpdateBezoek(bpv.Bezoek);
+            return RedirectToAction("MaakBezoek", new { id = bpv.Bezoek.Id });
+        }
 
         [HttpPost]
         public IActionResult UpdateBezoek(Bezoek bezoek)
@@ -67,11 +79,26 @@ namespace ZorgApp2.Controllers
         }
 
         [HttpPost]
+        public IActionResult VerwijderBezoek(Bezoek bezoek)
+        {
+            br.VerwijderBezoek(bezoek.Id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
         public IActionResult ToevoegenHandeling(BezoekPlanViewModel model, int taakId)
         {
             var bezoekId = model.Bezoek.Id;
             tr.ToevoegenHandeling(bezoekId, taakId);
             return RedirectToAction("MaakBezoek", new { id = bezoekId });
+        }
+
+        [HttpPost]
+        public IActionResult VerwijderHandeling(Handeling handeling)
+        {
+            var delhand = tr.VerwijderHandeling(handeling.Id);
+
+            return RedirectToAction("MaakBezoek", new { id = delhand.BezoekId });
         }
     }
 }

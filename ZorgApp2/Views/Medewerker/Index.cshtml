@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ZorgApp2.Models.Medewerker>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Beheer Medewerkers</h1>
+
+<p>
+    <a asp-action="ToevoegenMedewerkerForm">Medewerker Toevoegen</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Gebruikersnaam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Wachtwoord)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gebruikersnaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Wachtwoord)
+            </td>
+            <td>
+                <a asp-action="EditMedewerker" asp-route-id="@item.Id">Edit</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

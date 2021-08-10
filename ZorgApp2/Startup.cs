@@ -29,6 +29,7 @@ namespace ZorgApp2
             services.AddDbContext<ZorgAppDbContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllersWithViews();
+            services.AddRazorPages();
             services.AddScoped<IKlantRepository, KlantRepository>();
             services.AddScoped<ITaakRepository, TaakRepository>();
             services.AddScoped<IMedewerkerRepository, MedewerkerRepository>();
@@ -52,7 +53,7 @@ namespace ZorgApp2
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,6 +61,7 @@ namespace ZorgApp2
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

@@ -1,0 +1,34 @@
+﻿@model ZorgApp2.Models.Medewerker
+
+@{
+    ViewData["Title"] = "ToevoegenMedewerkerForm";
+}
+
+<h1>Toevoegen Medewerker</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ToevoegenMedewerker">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Gebruikersnaam" class="control-label"></label>
+                <input asp-for="Gebruikersnaam" class="form-control" />
+                <span asp-validation-for="Gebruikersnaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Wachtwoord" class="control-label"></label>
+                <input asp-for="Wachtwoord" class="form-control" />
+                <span asp-validation-for="Wachtwoord" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Medewerker Toevoegen" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
