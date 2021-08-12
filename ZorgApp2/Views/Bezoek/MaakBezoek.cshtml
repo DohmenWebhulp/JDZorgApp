@@ -3,58 +3,166 @@
 @{
     ViewData["Title"] = "MaakBezoek";
 }
-
+@section Styles{
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/tavocal/dist/tavo-calendar.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+}
 <h1>Bezoek Plannen</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post" asp-action="UpdateBezoek">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Bezoek.Datum" class="control-label"></label>
-                <input asp-for="Bezoek.Datum" class="form-control" />
-                <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Bezoek.MedewerkerId" class="control-label"></label>
-                <select asp-for="Bezoek.MedewerkerId" class="form-control" asp-items="ViewBag.MedewerkerId">
-                    @foreach (Medewerker mw in Model.Medewerkers)
-                    {
-                        <option>@mw.Gebruikersnaam</option>
-                    }
-                </select>
-            </div>
-            <!--Planner.Id komt met de BezoekPlanViewModel data mee-->
+<div class="container">
+    <form method="post" asp-action="UpdateBezoek">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Bezoek.Id" />
+        <!--Planner.Id komt met de BezoekPlanViewModel data mee-->
+        <div class="form-group">
             <input type="hidden" asp-for="Bezoek.PlannerId" />
-            <div class="form-group">
-                <label asp-for="Bezoek.KlantId" class="control-label"></label>
-                <select asp-for="Bezoek.KlantId" class="form-control" asp-items="ViewBag.KlantId">
-                    @foreach (Klant klant in Model.Klanten)
-                    {
-                        <option>@klant.Naam</option>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div id="tavo" class="form-group">
+                    <input asp-for="Bezoek.Datum" class="form-control" />
+                    <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="klantmwbox">
+                    <div class="klantmwhead">
+                        Klant
+                    </div>
+                    <div class="container">
+                        <div id="afterSelectKlant">
+                            <div style="font-size: 2em">
+                                @Model.Bezoek.Klant.Naam
+                            </div>
+                            <div>@Model.Bezoek.Klant.Adres</div>
+                            <div>@Model.Bezoek.Klant.Postcode</div>
+                            <div>@Model.Bezoek.Klant.Woonplaats</div>
+                        </div>
+                        <input type="hidden" asp-for="Bezoek.Id" />
+                        @Html.DropDownList("klantId", Model.Klanten.Select(klant => new SelectListItem() { Value = klant.Id.ToString(), Text = klant.Naam }))
+                        <input type="submit" id="select" value="selecteer Klant" asp-action="KlantDoorgeven" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="klantmwbox">
+                    <div class="klantmwhead">
+                        Medewerker
+                    </div>
+                    <div class="container">
+                        <div id="afterSelectMw">
+                            <div style="font-size: 2em">
+                                @Model.Bezoek.Medewerker.Gebruikersnaam
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="Bezoek.Id" />
+                        @Html.DropDownList("mwId", Model.Medewerkers.Select(mw => new SelectListItem() { Value = mw.Id.ToString(), Text = mw.Gebruikersnaam }))
+                        <input type="submit" id="selectMw" value="selecteer Medewerker" asp-action="MwDoorgeven" class="btn btn-primary"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Bezoek Plannen" class="btn btn-primary" />
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12">
+            <table id="myTableH">
+                <thead>
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Omschrijving
+                        </th>
+                        <th>
+                            Extra_info
+                        </th>
+                        <th>
+                            Uitgevoerd?
+                        </th>
+                        <th>
+                            Verwijderen
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 0;
                     }
-                </select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Bezoek Plannen" class="btn btn-primary" />
-            </div>
-        </form>
+                    @foreach (Handeling handeling in Model.Bezoek.Handelingen)
+                    {
+                        <tr>
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                @handeling.Taak.Omschrijving
+                            </td>
+                            <td>
+                                @handeling.Taak.Extra_info
+                            </td>
+                            <td>
+                                @handeling.Uitvoering
+                            </td>
+                            <td>
+                                @using (Html.BeginForm("VerwijderHandeling", "Bezoek", new { id = handeling.Id }))
+                                {
+                                <button type="submit" style="background-color: white; border: 0">
+                                    <img src="~/lib/assets/Trash_button.png" />
+                                </button>
+                                }
+                            </td>
+                        </tr>
+
+                    }
+                <tr>
+                    <td>
+                        @i
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <form method="post" asp-action="ToevoegenHandeling">
+                            <input type="hidden" asp-for="Bezoek.Id" />
+                            @Html.DropDownList("taakId", Model.Taken.Select(taak => new SelectListItem() { Value = taak.Id.ToString(), Text = taak.Omschrijving }))
+                            <button type="submit" style="background-color: white; border: 0">
+                                <img src="~/lib/assets/Add_button.png" />
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <form method="post">
     <input type="hidden" asp-for="Bezoek.Id" />
-    <input type="hidden" asp-for="Bezoek.KlantId" />
-    <input type="submit" value="selecteer Klant" asp-action="KlantDoorgeven" />
+    <input type="submit" value="Verwijderen" asp-action="VerwijderBezoek" />
 </form>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 @section Scripts{
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="~/lib/tavocal/dist/tavo-calendar.js"></script>
     <script>
         $(document).ready(function () {
             $('#myTableH').DataTable();
+            const myCalendar = new TavoCalendar('#tavo', {
+                date: "12-08-2021",
+                format: "DD-MM-YYYY"
+            })
+            //$('#select').click(function () {
+            //$('#dropd').hide();
+            //})
         });
     </script>
 }

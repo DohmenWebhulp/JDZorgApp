@@ -9,5 +9,7 @@ namespace ZorgApp2.Areas.Identity.Data
     // Add profile data for application users by adding properties to the ZorgApp2User class
     public class ZorgApp2User : IdentityUser
     {
+
+
     }
 }
