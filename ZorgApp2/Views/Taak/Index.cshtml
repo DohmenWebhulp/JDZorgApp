@@ -4,36 +4,62 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="ToevoegenTaakForm">Taak Toevoegen</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Omschrijving)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Extra_info)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Omschrijving)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Extra_info)
-            </td>
-            <td>
-                <a asp-action="EditTaak" asp-route-id="@item.Id">Edit</a>
-            </td>
-        </tr>
+@section Styles{
+    <link rel="stylesheet" href="~/lib/datatables/datatables.css" />
 }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1 style="margin-bottom: 50px">Beheer Taken</h1>
+        <table id="myTableT">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Omschrijving)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Extra_info)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Omschrijving)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Extra_info)
+                        </td>
+                        <td>
+                            <a asp-action="EditTaak" asp-route-id="@item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-3">
+                <div style="margin-top: 350px">
+                    <form method="post">
+                        <button asp-action="ToevoegenTaakForm" type="submit" class="btn btn-primary"
+                                style="width: 95%">
+                            Taak Toevoegen
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @section Scripts{
+            <script src="~/lib/datatables/datatables.js"></script>
+            <script>
+        $(document).ready(function () {
+            $('#myTableT').DataTable();
+        });
+            </script>
+        }

@@ -37,7 +37,7 @@ namespace ZorgApp2.Controllers
             int bezoekId;
             if (id == null)
             {
-                bezoek.KlantId = 5;
+                bezoek.KlantId = 11;
                 bezoek.MedewerkerId = 1;
                 bezoek.PlannerId = 1;
                 bezoekId = br.ToevoegenBezoek(bezoek).Id;
@@ -81,17 +81,14 @@ namespace ZorgApp2.Controllers
         }
 
         //Bij het doorgeven van het BPVM geeft het de informatie door die ofwel
-        //na het nieuw aanmaken van het bezoek, ofwel na de laatste save van een bezoek (knop Bezoek Plannen)
+        //na het nieuw aanmaken van het bezoek, ofwel na de laatste save van een bezoek (knop Opslaan)
         //voor dat bezoek geldden.
         //Dit betekent dat er potentieel verkeerde informatie over de klantId en/of medewerkerId wordt doorgegeven.
         //De informatie die hoort bij de selectie uit de dropdowns in de view moet eigenlijk worden doorgegeven.
         //Deze corresponderen met de klantId en mwId.
         //Deze worden onder andere gebruikt om het doorgegeven bezoek, wat alleen een id bevat,
         //van de juiste info te voorzien.
-        //Vervolgens wordt een nieuw bezoek
-
-
-
+        
         [HttpPost]
         public IActionResult KlantDoorgeven(BezoekPlanViewModel bpv, int klantId)
         {

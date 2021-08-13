@@ -61,7 +61,7 @@ namespace ZorgApp2
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Bezoek}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

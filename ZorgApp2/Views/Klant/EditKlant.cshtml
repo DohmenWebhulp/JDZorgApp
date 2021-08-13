@@ -1,94 +1,125 @@
 ﻿@model ZorgApp2.ViewModel.KlantViewModel
 @{
     ViewData["Title"] = "Index";
+    var kstaken = Model.Klant.KSTaken;
 }
 
-<h1>Edit Klant</h1>
+
 <form method="post">
-    <div class="row">
-        <div class="col-md-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Klant.Id" />
-            <div class="form-group">
-                <label asp-for="Klant.Naam" class="control-label"></label>
-                <input asp-for="Klant.Naam" class="form-control" />
-                <span asp-validation-for="Klant.Naam" class="text-danger"></span>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>NAW Gegevens</h1>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Klant.Id" />
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-12">
+                        <label asp-for="Klant.Naam" class="control-label"></label>
+                        <input asp-for="Klant.Naam" class="form-control" />
+                        <span asp-validation-for="Klant.Naam" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-12">
+                        <label asp-for="Klant.Adres" class="control-label"></label>
+                        <input asp-for="Klant.Adres" class="form-control" />
+                        <span asp-validation-for="Klant.Adres" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col-md-4">
+                        <label asp-for="Klant.Postcode" class="control-label"></label>
+                        <input asp-for="Klant.Postcode" class="form-control" />
+                        <span asp-validation-for="Klant.Postcode" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-8">
+                        <label asp-for="Klant.Woonplaats" class="control-label"></label>
+                        <input asp-for="Klant.Woonplaats" class="form-control" />
+                        <span asp-validation-for="Klant.Woonplaats" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Klant.Adres" class="control-label"></label>
-                <input asp-for="Klant.Adres" class="form-control" />
-                <span asp-validation-for="Klant.Adres" class="text-danger"></span>
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-9">
+                <h1 style="margin-bottom: 20px">Vaste Taken voor deze klant</h1>
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Omschrijving
+                            </th>
+                            <th>
+                                Extra_info
+                            </th>
+                            <th>
+                                Verwijderen?
+                            </th>
+                        </tr>
+                    </thead>
+                    <!--Tabel met KSTaken-->
+                    <tbody>
+                        @for (int i = 1; i < kstaken.Count() + 1; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @kstaken.ElementAt(i - 1).Taak.Omschrijving
+                                </td>
+                                <td>
+                                    @kstaken.ElementAt(i - 1).Taak.Extra_info
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("VerwijderKSTaak", "Klant", new { id = kstaken.ElementAt(i - 1).Id }))
+                                    {
+                                        <button type="submit" style="background-color: white; border: 0">
+                                            <img src="~/lib/assets/Trash_button.png" />
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+
+                        }
+                        <tr>
+                            <td>
+                                @{ int j = kstaken.Count() + 1;}
+                                @j
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <input type="hidden" asp-for="Klant.Id" />
+                                @Html.DropDownList("taakId", Model.Taken.Select(taak => new SelectListItem() { Value = taak.Id.ToString(), Text = taak.Omschrijving }))
+                                <button asp-action="ToevoegenKSTaak" type="submit" style="background-color: white; border: 0">
+                                    <img src="~/lib/assets/Add_button.png" />
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label asp-for="Klant.Postcode" class="control-label"></label>
-                <input asp-for="Klant.Postcode" class="form-control" />
-                <span asp-validation-for="Klant.Postcode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Klant.Woonplaats" class="control-label"></label>
-                <input asp-for="Klant.Woonplaats" class="form-control" />
-                <span asp-validation-for="Klant.Woonplaats" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" asp-action="UpdateKlant" value="Opslaan" class="btn btn-primary" />
+        </div>
+        <div style="margin-top: 130px">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-3">
+                    <input type="submit" value="Verwijderen" asp-action="VerwijderKlant"
+                           class="btn btn-danger" style="margin: 20px; width: 100%" />
+                </div>
+                <div class="col-md-3">
+                    <input type="hidden" asp-for="Klant.Id" />
+                    <input type="submit" value="Opslaan" asp-action="UpdateKlant"
+                           class="btn btn-primary" style="margin: 20px; width: 100%" />
+                </div>
             </div>
         </div>
     </div>
 </form>
-<table id="myTable">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Omschrijving
-            </th>
-            <th>
-                Extra_info
-            </th>
-            <th>
-                Verwijderen?
-            </th>
-        </tr>
-    </thead>
-    <!--Tabel met KSTaken-->
-    <tbody>
-        @foreach (KSTaak kstaak in Model.Klant.KSTaken)
-        {
-        <tr>
-            <td>
-                @kstaak.Id
-            </td>
-            <td>
-                @kstaak.Taak.Omschrijving
-            </td>
-            <td>
-                @kstaak.Taak.Extra_info
-            </td>
-            <td>
-                @using (Html.BeginForm("VerwijderKSTaak", "Klant", new { id = kstaak.Id }))
-                {
-                    <input type="submit" value="Verwijderen" class="btn btn-secondary" />
-                }
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
-<form method="post">
-    <input type="hidden" asp-for="Klant.Id" />
-    @Html.DropDownList("taakId", Model.Taken.Select(taak => new SelectListItem() { Value = taak.Id.ToString(), Text = taak.Omschrijving }))
-    <input type="submit" value="Toevoegen" asp-action="ToevoegenKSTaak" class="btn btn-primary"/>
-</form>
-<form method="post">
-    <input type="hidden" asp-for="Klant.Id" />
-    <input type="submit" asp-action="VerwijderKlant" value="Verwijderen" class="btn btn-secondary" />
-</form>
-<!--<form method="post" >
-    <input type="hidden" asp-for="kstaak.Id/>
-    <input type="submit" value="Verwijderen" asp-action="VerwijderKSTaak" asp-controller="RegelTaken" class="btn btn-secondary" />
-</form>-->
 
 @section Scripts{
     <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>

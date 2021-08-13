@@ -52,6 +52,10 @@ namespace ZorgApp2.Repositories
                 {
                     _context.KSTaak.Remove(kstaak);
                 }
+                foreach(Bezoek bezoek in klant.Bezoeken)
+                {
+                    _context.Bezoek.Remove(bezoek);
+                }
                 _context.Klanten.Remove(klant);
                 _context.SaveChanges();
             }

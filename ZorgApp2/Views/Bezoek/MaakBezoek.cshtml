@@ -2,17 +2,15 @@
 
 @{
     ViewData["Title"] = "MaakBezoek";
+    List<Handeling> hand = Model.Bezoek.Handelingen;
 }
 @section Styles{
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/tavocal/dist/tavo-calendar.css" />
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="~/lib/datatables/datatables.css" />
 }
-<h1>Bezoek Plannen</h1>
-
-<hr />
-<div class="container">
-    <form method="post" asp-action="UpdateBezoek">
+<form method="post">
+    <div class="container">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Bezoek.Id" />
         <!--Planner.Id komt met de BezoekPlanViewModel data mee-->
@@ -21,9 +19,9 @@
         </div>
         <div class="row">
             <div class="col-md-4">
-                <div id="tavo" class="form-group">
-                    <input asp-for="Bezoek.Datum" class="form-control" />
-                    <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
+                <input id="datum" asp-for="Bezoek.Datum" class="form-control" />
+                <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
+                <div id="tavo">
                 </div>
             </div>
             <div class="col-md-4">
@@ -59,106 +57,101 @@
                         </div>
                         <input type="hidden" asp-for="Bezoek.Id" />
                         @Html.DropDownList("mwId", Model.Medewerkers.Select(mw => new SelectListItem() { Value = mw.Id.ToString(), Text = mw.Gebruikersnaam }))
-                        <input type="submit" id="selectMw" value="selecteer Medewerker" asp-action="MwDoorgeven" class="btn btn-primary"/>
+                        <input type="submit" id="selectMw" value="selecteer Medewerker" asp-action="MwDoorgeven" class="btn btn-primary" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <input type="submit" value="Bezoek Plannen" class="btn btn-primary" />
-        </div>
-    </form>
-    <div class="row">
-        <div class="col-md-12">
-            <table id="myTableH">
-                <thead>
-                    <tr>
-                        <th>
-                            #
-                        </th>
-                        <th>
-                            Omschrijving
-                        </th>
-                        <th>
-                            Extra_info
-                        </th>
-                        <th>
-                            Uitgevoerd?
-                        </th>
-                        <th>
-                            Verwijderen
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{
-                        int i = 0;
-                    }
-                    @foreach (Handeling handeling in Model.Bezoek.Handelingen)
-                    {
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-12">
+                <table id="myTableH">
+                    <thead>
+                        <tr>
+                            <th>
+                                #
+                            </th>
+                            <th>
+                                Omschrijving
+                            </th>
+                            <th>
+                                Extra_info
+                            </th>
+                            <th>
+                                Uitgevoerd?
+                            </th>
+                            <th>
+                                Verwijderen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 1; i < hand.Count() + 1; i++)
+                        {
+                            <tr>
+                                <td>
+                                    @i
+                                </td>
+                                <td>
+                                    @hand.ElementAt(i - 1).Taak.Omschrijving
+                                </td>
+                                <td>
+                                    @hand.ElementAt(i - 1).Taak.Extra_info
+                                </td>
+                                <td>
+                                    @hand.ElementAt(i - 1).Uitvoering
+                                </td>
+                                <td>
+                                    @using (Html.BeginForm("VerwijderHandeling", "Bezoek", new { id = hand.ElementAt(i - 1).Id }))
+                                    {
+                                        <button type="submit" style="background-color: white; border: 0">
+                                            <img src="~/lib/assets/Trash_button.png" />
+                                        </button>
+                                    }
+                                </td>
+                            </tr>
+
+                        }
                         <tr>
                             <td>
-                                @i
+                                @{ int j = Model.Bezoek.Handelingen.Count() + 1;}
+                                @j
                             </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td>
-                                @handeling.Taak.Omschrijving
-                            </td>
-                            <td>
-                                @handeling.Taak.Extra_info
-                            </td>
-                            <td>
-                                @handeling.Uitvoering
-                            </td>
-                            <td>
-                                @using (Html.BeginForm("VerwijderHandeling", "Bezoek", new { id = handeling.Id }))
-                                {
-                                <button type="submit" style="background-color: white; border: 0">
-                                    <img src="~/lib/assets/Trash_button.png" />
+                                <input type="hidden" asp-for="Bezoek.Id" />
+                                @Html.DropDownList("taakId", Model.Taken.Select(taak => new SelectListItem() { Value = taak.Id.ToString(), Text = taak.Omschrijving }))
+                                <button asp-action="ToevoegenHandeling" type="submit" style="background-color: white; border: 0">
+                                    <img src="~/lib/assets/Add_button.png" />
                                 </button>
-                                }
                             </td>
                         </tr>
-
-                    }
-                <tr>
-                    <td>
-                        @i
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                        <form method="post" asp-action="ToevoegenHandeling">
-                            <input type="hidden" asp-for="Bezoek.Id" />
-                            @Html.DropDownList("taakId", Model.Taken.Select(taak => new SelectListItem() { Value = taak.Id.ToString(), Text = taak.Omschrijving }))
-                            <button type="submit" style="background-color: white; border: 0">
-                                <img src="~/lib/assets/Add_button.png" />
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div style="margin-top: 70px">
+            <input type="hidden" asp-for="Bezoek.Id" />
+            <input type="submit" value="Opslaan" asp-action="UpdateBezoek"
+                   class="btn btn-primary" style="float: right; margin: 20px" />
+            <input type="submit" value="Verwijderen" asp-action="VerwijderBezoek"
+                   class="btn btn-danger" style="float: right; margin: 20px; width: 35%" />
         </div>
     </div>
-</div>
-<form method="post">
-    <input type="hidden" asp-for="Bezoek.Id" />
-    <input type="submit" value="Verwijderen" asp-action="VerwijderBezoek" />
 </form>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 @section Scripts{
-    <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/datatables.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="~/lib/tavocal/dist/tavo-calendar.js"></script>
     <script>
         $(document).ready(function () {
             $('#myTableH').DataTable();
             const myCalendar = new TavoCalendar('#tavo', {
-                date: "12-08-2021",
-                format: "DD-MM-YYYY"
+                date: "12-08-2021"
+            })
+            document.addEventListener('click', function () {
+                $('#datum').val(myCalendar.getSelected())
             })
             //$('#select').click(function () {
             //$('#dropd').hide();

@@ -3,49 +3,74 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="ToevoegenKlantForm">Klant Toevoegen</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Naam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adres)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Postcode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Woonplaats)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Naam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adres)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Postcode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Woonplaats)
-            </td>
-            <td>
-                <a asp-action="EditKlant" asp-route-id="@item.Id">Edit</a>
-            </td>
-        </tr>
+@section Styles{
+    <link rel="stylesheet" href="~/lib/datatables/datatables.css" />
 }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1 style="margin-bottom: 50px">Beheer Klanten</h1>
+        <table id="myTableK">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Naam)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Postcode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Woonplaats)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Naam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Adres)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Postcode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Woonplaats)
+                        </td>
+                        <td>
+                            <a asp-action="EditKlant" asp-route-id="@item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-9"></div>
+    <div class="col-md-3">
+        <div style="margin-top: 350px">
+            <form method="post">
+                <button asp-action="ToevoegenKlantForm" type="submit" class="btn btn-primary"
+                        style="width: 95%">
+                    Klant Toevoegen
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/lib/datatables/datatables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTableK').DataTable();
+        });
+    </script>
+}

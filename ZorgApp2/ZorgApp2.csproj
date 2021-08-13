@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\lib\datatables\" />
     <Folder Include="wwwroot\lib\tavocal\" />
   </ItemGroup>
 
