@@ -1,3 +1,5 @@
+# Zapp de ZorgApp
+
 De ZorgApp Zapp is een driedelige applicatie met als doel dat zorgmedewerkers efficiënt zorgtaken bij hun clienten kunnen verrichten. Het bestaat uit:
 * Een Webapplicatie, waarin een planner bezoeken kan regelen tussen klant en medewerker met een bijbehorend takenpakket.
 * Een Mobile app, waarin medewerkers kunnen zien welke bezoeken ze hebben voor die dag en welke handelingen ze moeten verrichten bij dat bezoek.
