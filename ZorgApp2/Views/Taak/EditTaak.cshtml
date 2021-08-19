@@ -4,35 +4,39 @@
     ViewData["Title"] = "EditTaak";
 }
 
-<h1>Bewerk Taak</h1>
-
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UpdateTaak">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Omschrijving" class="control-label"></label>
-                <input asp-for="Omschrijving" class="form-control" />
-                <span asp-validation-for="Omschrijving" class="text-danger"></span>
+<form method="post" asp-action="UpdateTaak">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>NAW Gegevens</h1>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Omschrijving" class="control-label"></label>
+                    <input asp-for="Omschrijving" class="form-control" />
+                    <span asp-validation-for="Omschrijving" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Extra_info" class="control-label"></label>
+                    <input asp-for="Extra_info" class="form-control" />
+                    <span asp-validation-for="Extra_info" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Extra_info" class="control-label"></label>
-                <input asp-for="Extra_info" class="form-control" />
-                <span asp-validation-for="Extra_info" class="text-danger"></span>
+        </div>
+        <div style="margin-top: 130px">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <input type="submit" value="Verwijderen" asp-action="VerwijderTaak"
+                           class="btn btn-danger" style="margin: 20px; width: 100%" />
+                </div>
+                <div class="col-md-3">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Opslaan" asp-action="UpdateTaak"
+                           class="btn btn-primary" style="margin: 20px; width: 100%" />
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Opslaan" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-<form method="post" asp-action="VerwijderTaak">
-    <input type="hidden" asp-for="Id" />
-    <input type="submit" value="Verwijderen" class="btn btn-secondary" />
 </form>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

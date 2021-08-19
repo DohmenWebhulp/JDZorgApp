@@ -61,6 +61,31 @@ a:visited {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 700px;
+}
+
+.zappbox {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 400px;
+    height: 230px;
+    color: white;
+    padding-left: 10px;
+    font-size: 5em;
+}
+
+.zappunder {
+    color: lightgrey;
+    font-style: italic;
+    font-size: 0.8em;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
 }
 
 .btn-primary {

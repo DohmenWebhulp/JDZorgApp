@@ -48,11 +48,13 @@ namespace ZorgApp2.Repositories
 
             //Hoe dit het beste op te lossen? Een vraag die ook vanuit Frank kwam is:
             //Kun je het doorgegeven bezoek niet klonen en de kloon gebruiken om de database te updaten?
-            Bezoek bez = Bezoek;
-            var bezoek = _context.Bezoek.Attach(bez);
-            bezoek.State = EntityState.Modified;
+            Bezoek bez = _context.Bezoek.Find(Bezoek.Id);
+            bez.KlantId = Bezoek.KlantId;
+            bez.MedewerkerId = Bezoek.MedewerkerId;
+            bez.PlannerId = Bezoek.PlannerId;
+            bez.Datum = Bezoek.Datum;
             _context.SaveChanges();
-            return Bezoek;
+            return bez;
         }
 
         public Bezoek ToevoegenBezoek(Bezoek Bezoek)

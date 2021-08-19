@@ -18,52 +18,62 @@
             <input type="hidden" asp-for="Bezoek.PlannerId" />
         </div>
         <div class="row">
-            <div class="col-md-4">
-                <input id="datum" asp-for="Bezoek.Datum" class="form-control" />
-                <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
-                <div id="tavo">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="klantmwbox">
-                    <div class="klantmwhead">
-                        Klant
-                    </div>
-                    <div class="container">
-                        <div id="afterSelectKlant">
-                            <div style="font-size: 2em">
-                                @Model.Bezoek.Klant.Naam
-                            </div>
-                            <div>@Model.Bezoek.Klant.Adres</div>
-                            <div>@Model.Bezoek.Klant.Postcode</div>
-                            <div>@Model.Bezoek.Klant.Woonplaats</div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input id="datum" asp-for="Bezoek.Datum" class="form-control" />
+                        <span asp-validation-for="Bezoek.Datum" class="text-danger"></span>
+                        <div id="tavo">
                         </div>
-                        <input type="hidden" asp-for="Bezoek.Id" />
-                        @Html.DropDownList("klantId", Model.Klanten.Select(klant => new SelectListItem() { Value = klant.Id.ToString(), Text = klant.Naam }))
-                        <input type="submit" id="select" value="selecteer Klant" asp-action="KlantDoorgeven" class="btn btn-primary" />
                     </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="klantmwbox">
-                    <div class="klantmwhead">
-                        Medewerker
-                    </div>
-                    <div class="container">
-                        <div id="afterSelectMw">
-                            <div style="font-size: 2em">
-                                @Model.Bezoek.Medewerker.Gebruikersnaam
+                    <div class="col-md-4">
+                        <div class="klantmwbox">
+                            <div class="klantmwhead">
+                                Klant
+                            </div>
+                            <div class="container">
+                                <div id="afterSelectKlant">
+                                    <div style="font-size: 1.4em; font-weight: bold">
+                                        @Model.Bezoek.Klant.Naam
+                                    </div>
+                                    <div>@Model.Bezoek.Klant.Adres</div>
+                                    <div>@Model.Bezoek.Klant.Postcode</div>
+                                    <div>@Model.Bezoek.Klant.Woonplaats</div>
+                                </div>
+                                <input type="hidden" asp-for="Bezoek.Id" />
+                                @Html.DropDownList("klantId", Model.Klanten.Select(klant => new SelectListItem() { Value = klant.Id.ToString(), Text = klant.Naam }))
+                                <input type="submit" id="select" value="Selecteer Klant" asp-action="KlantDoorgeven" class="btn btn-primary" />
                             </div>
                         </div>
-                        <input type="hidden" asp-for="Bezoek.Id" />
-                        @Html.DropDownList("mwId", Model.Medewerkers.Select(mw => new SelectListItem() { Value = mw.Id.ToString(), Text = mw.Gebruikersnaam }))
-                        <input type="submit" id="selectMw" value="selecteer Medewerker" asp-action="MwDoorgeven" class="btn btn-primary" />
+                    </div>
+                    <div class="col-md-4">
+                        <div class="klantmwbox">
+                            <div class="klantmwhead">
+                                Medewerker
+                            </div>
+                            <div class="container">
+                                <div id="afterSelectMw">
+                                    <div style="font-size: 1.4em; font-weight: bold">
+                                        @Model.Bezoek.Medewerker.Gebruikersnaam
+                                    </div>
+                                    <div id="tijdAan" contenteditable="true">
+                                        Tijdstip aanmelden: @Model.Bezoek.Tijdstip_aanmelden
+                                    </div>
+                                    <div id="tijdAf" contenteditable="true">
+                                        Tijdstip afmelden: @Model.Bezoek.Tijdstip_afmelden
+                                    </div>
+                                </div>
+                                <input type="hidden" asp-for="Bezoek.Id" />
+                                @Html.DropDownList("mwId", Model.Medewerkers.Select(mw => new SelectListItem() { Value = mw.Id.ToString(), Text = mw.Gebruikersnaam }))
+                                <input type="submit" id="selectMw" value="Selecteer Medewerker" asp-action="MwDoorgeven" class="btn btn-primary" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row" style="margin-top: 30px">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <table id="myTableH">
                     <thead>
                         <tr>
@@ -98,7 +108,12 @@
                                     @hand.ElementAt(i - 1).Taak.Extra_info
                                 </td>
                                 <td>
-                                    @hand.ElementAt(i - 1).Uitvoering
+                                    <div class="checkbox">
+                                        @if(hand.ElementAt(i - 1).Uitvoering == true)
+                                        {
+                                            <div>check</div>
+                                        }
+                                    </div>
                                 </td>
                                 <td>
                                     @using (Html.BeginForm("VerwijderHandeling", "Bezoek", new { id = hand.ElementAt(i - 1).Id }))
@@ -131,12 +146,19 @@
                 </table>
             </div>
         </div>
-        <div style="margin-top: 70px">
-            <input type="hidden" asp-for="Bezoek.Id" />
-            <input type="submit" value="Opslaan" asp-action="UpdateBezoek"
-                   class="btn btn-primary" style="float: right; margin: 20px" />
-            <input type="submit" value="Verwijderen" asp-action="VerwijderBezoek"
-                   class="btn btn-danger" style="float: right; margin: 20px; width: 35%" />
+        <div style="margin-top: 130px">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <input type="submit" value="Verwijderen" asp-action="VerwijderBezoek"
+                           class="btn btn-danger" style="margin: 20px; width: 100%" />
+                </div>
+                <div class="col-md-2">
+                    <input type="hidden" asp-for="Bezoek.Id" />
+                    <input type="submit" value="Opslaan" asp-action="UpdateBezoek"
+                           class="btn btn-primary" style="margin: 20px; width: 100%" />
+                </div>
+            </div>
         </div>
     </div>
 </form>
@@ -146,9 +168,20 @@
     <script src="~/lib/tavocal/dist/tavo-calendar.js"></script>
     <script>
         $(document).ready(function () {
+            $('#tijdAan').hide(); $('#tijdAf').hide();
+            var tijdAan = document.getElementById("tijdAan").innerText.substring(1, 10);
+            var tijdAf = $('#tijdAf').text().substr(1, 10);
+            console.log(tijdAan);
+            console.log(tijdAf);
+            if (tijdAan != "00:00:00") {
+                $('#tijdAan').show();
+            }
+            if (tijdAf != "00:00:00") {
+                $('#tijdAf').show();
+            }
             $('#myTableH').DataTable();
             const myCalendar = new TavoCalendar('#tavo', {
-                date: "12-08-2021"
+                date: "2021-08-13"
             })
             document.addEventListener('click', function () {
                 $('#datum').val(myCalendar.getSelected())

@@ -15,41 +15,44 @@
     <link rel="stylesheet" href="~/lib/datatables/datatables.css" />
 </head>
 <body class="bglogin logins">
-<div class="logos">
-    <img src="~/lib/assets/Logo_Heart@2x.png" />
-</div>
-    <div>
-        <form id="account" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Input.Email" placeholder="Gebruikersnaam" style="color: #0158a4" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Input.Password" placeholder="Wachtwoord" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="grad"
-                        style="float: right; border: 0; border-bottom: 1px solid white">
-                    Login
-                </button>
-                <button type="submit" class="grad"
-                        style="float: left; border: 0; border-bottom: 1px solid white"
-                        id="forgot-password" asp-page="./ForgotPassword">
-                    Vergeten
-                </button>
-            </div>
-            <div class="form-group">
-                <p>
-                    <a style="color: white" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                </p>
-            </div>
-        </form>
+    <div class="logos">
+        <img src="~/lib/assets/Logo_Heart@2x.png" />
     </div>
+    <form id="account" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <input asp-for="Input.Email" placeholder="Gebruikersnaam" class="form-control" style="color: #0158a4" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Input.Password" placeholder="Wachtwoord" class="form-control" style="color: #0158a4" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="grad"
+                    style="float: right; border: 0; border-bottom: 1px solid white">
+                Login
+            </button>
+            <button type="submit" class="grad"
+                    style="float: left; border: 0; border-bottom: 1px solid white"
+                    id="forgot-password" asp-page="./ForgotPassword">
+                Vergeten
+            </button>
+        </div>
+        <div style="clear: both"></div>
+        <div class="form-group">
+            <p>
+                <a style="color: white" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+            </p>
+        </div>
+    </form>
+    <div class="zappbox">
+        <div>zapp</div>
+        <div class="zappunder">de zorg app</div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/datatables/datatables.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

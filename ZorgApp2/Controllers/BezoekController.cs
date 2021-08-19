@@ -35,6 +35,10 @@ namespace ZorgApp2.Controllers
         {
             var bezoek = new Bezoek();
             int bezoekId;
+
+            //Omdat .Net moeilijk doet wanneer er geen foreign keys zijn gedefiniëerd bij het aanmaken van een nieuw bezoek,
+            //worden er default foreign key id's meegegeven aan het bezoek. Deze kunnen later aangepast worden.
+
             if (id == null)
             {
                 bezoek.KlantId = 11;
@@ -64,6 +68,11 @@ namespace ZorgApp2.Controllers
         public IActionResult Index()
         {
             var bezoeken = br.OphalenBezoeken();
+
+            //Omdat de bezoeken met klantgegevens op de juiste plaats in de kalender moeten verschijnen, is er een
+            //Event entity aangemaakt met een Id, Klantnaam en datum van bezoek als attributen.
+            //Deze worden verder niet in een database opgeslagen en zijn puur voor frontend gebruik.
+
             Event[] events = new Event[bezoeken.Count()];
             
             for (int i = 0; i < bezoeken.Count(); i++)

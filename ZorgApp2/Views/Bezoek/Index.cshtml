@@ -8,19 +8,21 @@
 @section Styles{
     <link href='~/lib/main.css' rel='stylesheet' />
 }
-<h1>Kalender</h1>
 
 <div class="container">
+    <h1>Kalender</h1>
     <div style="float: right">
-        <a type="button" asp-action="MaakBezoek" class="btn btn-primary">Afspraak Toevoegen</a>
+        <form method="post">
+            <button type="submit" asp-action="MaakBezoek" class="btn btn-primary">Afspraak Toevoegen</button>
+        </form>
     </div>
     <div style="clear: both"></div>
-    <div id="calendar" style="margin-top: 20px">
+    <div id="calendar" style="margin-top: 40px">
     </div>
 </div>
-<table class="table" id="calend">
+<table class="table" id="calend" style="margin-top: 40px">
     <tbody>
-        @for(int i = 0; i < length; i++)
+        @for (int i = 0; i < length; i++)
         {
             <tr>
                 <td>
@@ -39,6 +41,7 @@
 @section Scripts{
     <script src='~/lib/main.js'></script>
     <script src="~/lib/locales-all.js"></script>
+    <script src="~/lib/datatables/datatables.js"></script>
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -75,9 +78,9 @@
                 },
                 events: eventsArray,
             });
-            
-            calendar.render();
-        });
 
+            calendar.render();
+            $('#calend').DataTable();
+        });
     </script>
 }
