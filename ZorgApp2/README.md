@@ -43,7 +43,7 @@ Met behulp van design pattern MVC en framework ASP.NET Core is de backoffice geb
 
 ![ERD](~/lib/Read/ERD_ZAPP.png)
 
-### Webpagina's
+# Webpagina's
 
 ---
 
