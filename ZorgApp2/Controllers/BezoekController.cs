@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using ZorgApp2.Models;
 using ZorgApp2.ViewModel;
 using ZorgApp2.Repositories;
+using Microsoft.AspNetCore.Identity;
+using ZorgApp2.Areas.Identity.Data;
+using System.Security.Claims;
+
 namespace ZorgApp2.Controllers
 {
     public class BezoekController : Controller
@@ -15,13 +19,17 @@ namespace ZorgApp2.Controllers
         private ITaakRepository tr { get; set; }
         private IMedewerkerRepository mr { get; set; }
         private IBezoekRepository br { get; set; }
+
+        //private readonly UserManager<Planner> userManager;
         public BezoekController(IKlantRepository _kr, ITaakRepository _tr, 
                                 IMedewerkerRepository _mr, IBezoekRepository _br)
+                                
         {
             kr = _kr;
             tr = _tr;
             mr = _mr;
             br = _br;
+            //userManager = _userManager;
         }
         public BezoekPlanViewModel BPVmodel { get; set; }
 
@@ -43,7 +51,6 @@ namespace ZorgApp2.Controllers
             {
                 bezoek.KlantId = 11;
                 bezoek.MedewerkerId = 1;
-                bezoek.PlannerId = 1;
                 bezoekId = br.ToevoegenBezoek(bezoek).Id;
             }
             else
@@ -64,9 +71,11 @@ namespace ZorgApp2.Controllers
             };
             return View(BPVmodel);
         }
-
+        //private Task<Planner> GetCurrentUserAsync() => userManager.GetUserAsync(HttpContext.User);
         public IActionResult Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            System.Diagnostics.Debug.WriteLine(userId);
             var bezoeken = br.OphalenBezoeken();
 
             //Omdat de bezoeken met klantgegevens op de juiste plaats in de kalender moeten verschijnen, is er een
@@ -82,6 +91,10 @@ namespace ZorgApp2.Controllers
                 {
                     Id = i,
                     Inhoud = bezoeken[i].Klant.Naam.ToString(),
+                    /*KlantNaam = bezoeken[i].Klant.Naam.ToString(),
+                    KlantAdres = bezoeken[i].Klant.Adres.ToString(),
+                    KlantPostcode = bezoeken[i].Klant.Postcode.ToString(),
+                    KlantWoonplaats = bezoeken[i].Klant.Woonplaats.ToString(),*/
                     StartDatum = bezoeken[i].Datum.ToString()
                 };
             }

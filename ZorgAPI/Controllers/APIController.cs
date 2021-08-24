@@ -53,15 +53,6 @@ namespace ZorgAPI.Controllers
             {
                 return NotFound();
             }
-
-            foreach (Bezoek bezoek in mw.Bezoeken)
-            {
-                bezoek.Klant = await ar.OphalenKlant(bezoek.KlantId);
-                foreach(Handeling handeling in bezoek.Handelingen)
-                {
-                    handeling.Taak = await ar.OphalenTaak(handeling.TaakId);
-                }
-            }
             
             return mw;
         }

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using ZorgApp2.Models;
 
-namespace ZorgApp2.Models
+namespace ZorgApp2.Areas.Identity.Data
 {
-    public class Planner
+    // Add profile data for application users by adding properties to the ZorgApp2User class
+    public class Planner : IdentityUser
     {
-        public int Id { get; set; }
-        public string Gebruikersnaam { get; set; }
-        public string Wachtwoord { get; set; }
         public List<Bezoek> Bezoeken { get; set; }
     }
 }

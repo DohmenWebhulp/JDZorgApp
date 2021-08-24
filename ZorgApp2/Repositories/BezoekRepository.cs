@@ -27,7 +27,7 @@ namespace ZorgApp2.Repositories
         public List<Bezoek> OphalenBezoeken()
         {
             List<Bezoek> Bezoeken = _context.Bezoek.Include(c => c.Klant).Include(d => d.Medewerker)
-                                                   .Include(e => e.Planner).ToList();
+                                                   .ToList();
             return Bezoeken;
         }
 
@@ -51,7 +51,6 @@ namespace ZorgApp2.Repositories
             Bezoek bez = _context.Bezoek.Find(Bezoek.Id);
             bez.KlantId = Bezoek.KlantId;
             bez.MedewerkerId = Bezoek.MedewerkerId;
-            bez.PlannerId = Bezoek.PlannerId;
             bez.Datum = Bezoek.Datum;
             _context.SaveChanges();
             return bez;

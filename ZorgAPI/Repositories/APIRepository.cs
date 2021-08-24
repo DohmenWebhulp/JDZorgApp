@@ -36,7 +36,9 @@ namespace ZorgAPI.Repositories
 
         public async Task<Medewerker> OphalenMedewerker(int Id)
         {
-            return await _context.Medewerker.Include(d => d.Bezoeken).ThenInclude(d => d.Handelingen).FirstOrDefaultAsync(d => d.Id == Id);
+            return await _context.Medewerker.Include(m => m.Bezoeken).ThenInclude(b => b.Handelingen).ThenInclude(h => h.Taak)
+                                            .Include(m => m.Bezoeken).ThenInclude(b => b.Klant)
+                                            .FirstOrDefaultAsync(d => d.Id == Id);
         }
 
         public async Task UpdateHandeling(Handeling Handeling)

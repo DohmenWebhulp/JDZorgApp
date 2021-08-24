@@ -30,6 +30,15 @@ a:visited {
     color: white;
 }
 
+.knoppen {
+    width: 70px;
+    height: 38px;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid white;
+    color: white
+}
+
 .logos {
     position: absolute;
     left: 20px;

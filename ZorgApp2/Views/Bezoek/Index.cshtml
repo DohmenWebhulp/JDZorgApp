@@ -20,6 +20,7 @@
     <div id="calendar" style="margin-top: 40px">
     </div>
 </div>
+<h1 style="margin-top: 40px">Afsprakenlijst</h1>
 <table class="table" id="calend" style="margin-top: 40px">
     <tbody>
         @for (int i = 0; i < length; i++)
@@ -29,7 +30,7 @@
                     @events.ElementAt(i).Id
                 </td>
                 <td>
-                    <a asp-action="MaakBezoek" asp-route-id="@Model.ElementAt(i).Id">@events.ElementAt(i).Inhoud</a>
+                    <a id="idEvent@(i)" asp-action="MaakBezoek" asp-route-id="@Model.ElementAt(i).Id">@events.ElementAt(i).Inhoud</a>
                 </td>
                 <td>
                     @events.ElementAt(i).StartDatum
@@ -76,7 +77,11 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
+                eventLimit: true,
                 events: eventsArray,
+                eventClick: function (info) {
+                    window.location = $('#idEvent@(Model.ElementAt(0).Id)').attr('asp-action');
+                }
             });
 
             calendar.render();
