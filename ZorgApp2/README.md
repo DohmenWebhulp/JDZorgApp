@@ -62,25 +62,25 @@ De ASD's van de Medewerkers en Taken zijn hetzelfde in structuur als de ASD voor
 
 ## Inlogscherm
 
-![screenshot](./wwwroot/lib/Read/inlogScreenshot.png)
+![screenshot](./wwwroot/lib/Read/inlogScreenshot.PNG)
 
 In het Inlogscherm kan de planner inloggen met zijn gebruikersnaam (email) en wachtwoord.
 
 ## Beheer Klanten/Taken/Medewerkers overzicht
 
-![screenshot](./wwwroot/lib/Read/klantScreenshot.png)
+![screenshot](./wwwroot/lib/Read/klantScreenshot.PNG)
 
 Deze pagina's zijn simpele overzichten van de lijsten met Klanten/Taken/Medewerkers.
 
 ## Klant/Taak/Medewerker Toevoegen
 
-![screenshot](./wwwroot/lib/Read/formScreenshot.png)
+![screenshot](./wwwroot/lib/Read/formScreenshot.PNG)
 
 Deze pagina's zijn simpele forms om een Klant/Taak/Medewerker toe te voegen.
 
 ## Bewerk Klant
 
-![screenshot](./wwwroot/lib/Read/klantEditScreenshot.png)
+![screenshot](./wwwroot/lib/Read/klantEditScreenshot.PNG)
 
 De Bewerk Klantpagina laat naast de klantgegevens die aangepast en/of verwijderd kunnen worden, ook een lijst met klant-specifieke taken zien. Deze taken kunnen geselecteerd worden uit een algemene takenlijst. Ze kunnen hier vervolgens ook weer verwijderd worden.
 
@@ -91,13 +91,13 @@ tabel met klant-specifieke taken.
 
 ## Bezoekenoverzicht
 
-![screenshot](./wwwroot/lib/Read/kalenderScreenshot.png)
+![screenshot](./wwwroot/lib/Read/kalenderScreenshot.PNG)
 
 Het bezoekenoverzicht bestaat uit een kalender met daarin bezoeken gepland die de klantgegevens tonen. Men kan op de link klikken om door te gaan naar het bezoekdetailscherm of men kan een nieuw bezoek plannen door op de knop 'Afspraak Toevoegen' te klikken.
 
 ## Bezoekdetailscherm
 
-![screenshot](./wwwroot/lib/Read/bezoekDetailScreenshot.png)
+![screenshot](./wwwroot/lib/Read/bezoekDetailScreenshot.PNG)
 
 In het detailscherm kan de planning gemaakt, aangepast, verwijderd of bekeken worden. De planner kan hierin een datum prikken, een klant selecteren uit de klantenlijst en een medewerker selecteren uit de medewerkerslijst. Tevens kunnen handelingen toegevoegd en/of verwijderd worden. Dit kan ofwel door
 * Een taak te kiezen uit de standaard takenlijst
