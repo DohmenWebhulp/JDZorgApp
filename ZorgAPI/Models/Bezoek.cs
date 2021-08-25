@@ -16,10 +16,8 @@ namespace ZorgApp2.Models
         [DataType(DataType.Time)]
         public TimeSpan Tijdstip_afmelden { get; set; }
         public int MedewerkerId { get; set; }
-        public int PlannerId { get; set; }
         public int KlantId { get; set; }
         public Medewerker Medewerker { get; set; }
-        public Planner Planner { get; set; }
         public Klant Klant { get; set; }
         public List<Handeling> Handelingen { get; set; }
 

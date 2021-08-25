@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZorgAPI.Models;
 using ZorgApp2.Models;
 namespace ZorgAPI.Data
 {
@@ -15,10 +17,10 @@ namespace ZorgAPI.Data
 
         public DbSet<Klant> Klanten { get; set; }
         public DbSet<Taak> Taak { get; set; }
-        public DbSet<Planner> Planner { get; set; }
         public DbSet<Medewerker> Medewerker { get; set; }
         public DbSet<KSTaak> KSTaak { get; set; }
         public DbSet<Handeling> Handeling { get; set; }
         public DbSet<Bezoek> Bezoek { get; set; }
+        public DbSet<UserMobile> Users { get; set; }
     }
 }

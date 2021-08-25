@@ -8,7 +8,10 @@ namespace ZorgApp2.Models
     public class Event
     {
         public int Id { get; set; }
-        public string Inhoud { get; set; }
+        public string KlantNaam { get; set; }
+        public string KlantAdres { get; set; }
+        public string KlantPostcode { get; set; }
+        public string KlantWoonplaats { get; set; }
         public string StartDatum { get; set; }
     }
 }

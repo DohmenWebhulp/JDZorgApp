@@ -27,10 +27,17 @@
         {
             <tr>
                 <td>
-                    @events.ElementAt(i).Id
+                    @Model.ElementAt(i).Id
                 </td>
                 <td>
-                    <a id="idEvent@(i)" asp-action="MaakBezoek" asp-route-id="@Model.ElementAt(i).Id">@events.ElementAt(i).Inhoud</a>
+                    <a id="idEvent@(i)" asp-action="MaakBezoek" asp-route-id="@Model.ElementAt(i).Id">
+                        <div style="font-size: 2em">@events.ElementAt(i).KlantNaam</div>
+                        <div>
+                            @events.ElementAt(i).KlantAdres,
+                            @events.ElementAt(i).KlantPostcode,
+                            @events.ElementAt(i).KlantWoonplaats
+                        </div>
+                    </a>
                 </td>
                 <td>
                     @events.ElementAt(i).StartDatum
@@ -53,8 +60,9 @@
             let trElems = eventsTable.getElementsByTagName('tr');
             for (let tr of trElems) {
                 let tdElems = tr.getElementsByTagName('td');
+                let divElems = tdElems[1].getElementsByTagName('div');
+                console.log(divElems);
                 let c = tdElems[2].innerText;
-                console.log(c);
                 let d = ""; let startDate = "";
                 if (c.charAt(5) == '-') {
                     startDate = d.concat(c.substring(6, 10), "-", c.substring(3, 5), "-", c.substring(0, 2));
@@ -63,8 +71,11 @@
                 }
                 let eventObj = {
                     id: tdElems[0].innerText,
-                    title: tdElems[1].innerText,
+                    title: [divElems[0].innerText, divElems[1].innerText],
                     start: startDate,
+                    backgroundColor: 'white',
+                    borderColor: 'white',
+                    textColor: '#0158a4'
                 }
                 console.log(eventObj);
                 eventsArray.push(eventObj);
@@ -77,11 +88,12 @@
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                eventLimit: true,
                 events: eventsArray,
                 eventClick: function (info) {
-                    window.location = $('#idEvent@(Model.ElementAt(0).Id)').attr('asp-action');
+                    var s = info.event.id.toString();
+                    window.location = "./Bezoek/MaakBezoek/" + s;
                 }
+                
             });
 
             calendar.render();

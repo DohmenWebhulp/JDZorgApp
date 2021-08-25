@@ -29,6 +29,7 @@ namespace ZorgAPI
         {
             services.AddControllers();
             services.AddScoped<IAPIRepository, APIRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<ZorgAPIContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

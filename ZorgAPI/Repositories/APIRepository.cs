@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using ZorgAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ZorgApp2.Models;
+using Microsoft.AspNetCore.Identity;
+using ZorgAPI.Models;
+
 namespace ZorgAPI.Repositories
 {
     public class APIRepository : IAPIRepository
@@ -25,15 +28,6 @@ namespace ZorgAPI.Repositories
             return await _context.Handeling.FindAsync(Id);
         }
 
-        public async Task<Klant> OphalenKlant(int klantId)
-        {
-            return await _context.Klanten.FindAsync(klantId);
-        }
-        public async Task<Taak> OphalenTaak(int taakId)
-        {
-            return await _context.Taak.FindAsync(taakId);
-        }
-
         public async Task<Medewerker> OphalenMedewerker(int Id)
         {
             return await _context.Medewerker.Include(m => m.Bezoeken).ThenInclude(b => b.Handelingen).ThenInclude(h => h.Taak)
@@ -52,5 +46,7 @@ namespace ZorgAPI.Repositories
             _context.Entry(Bezoek).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
+        
     }
 }

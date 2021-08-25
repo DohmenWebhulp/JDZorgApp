@@ -90,11 +90,11 @@ namespace ZorgApp2.Controllers
                 new Event
                 {
                     Id = i,
-                    Inhoud = bezoeken[i].Klant.Naam.ToString(),
-                    /*KlantNaam = bezoeken[i].Klant.Naam.ToString(),
+                    //Inhoud = bezoeken[i].Klant.Naam.ToString(),
+                    KlantNaam = bezoeken[i].Klant.Naam.ToString(),
                     KlantAdres = bezoeken[i].Klant.Adres.ToString(),
                     KlantPostcode = bezoeken[i].Klant.Postcode.ToString(),
-                    KlantWoonplaats = bezoeken[i].Klant.Woonplaats.ToString(),*/
+                    KlantWoonplaats = bezoeken[i].Klant.Woonplaats.ToString(),
                     StartDatum = bezoeken[i].Datum.ToString()
                 };
             }

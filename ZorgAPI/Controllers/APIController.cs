@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using ZorgAPI.Data;
 using ZorgApp2.Models;
 using ZorgAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ZorgAPI.Controllers
 {
     [Route("api/[controller]")]

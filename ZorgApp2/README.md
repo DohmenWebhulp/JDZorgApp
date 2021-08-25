@@ -43,7 +43,18 @@ Met behulp van design pattern MVC en framework ASP.NET Core is de backoffice geb
 
 ## Methoden en Technieken
 
+De entiteiten met PK's en FK relaties zijn hieronder te zien.
 ![ERD](./wwwroot/lib/Read/ERD_ZAPP.png)
+
+Er zijn ook ASD's gemaakt voor het backoffice deel. 
+De ASD's van de Medewerkers en Taken zijn hetzelfde in structuur als de ASD voor de Klant.
+
+![ASD](./wwwroot/lib/Read/ASD_CRUDKlant.png)
+![ASD](./wwwroot/lib/Read/ASD_KSTaken.png)
+![ASD](./wwwroot/lib/Read/ASD_MaakBezoek.png)
+![ASD](./wwwroot/lib/Read/ASD_MaakBezoek2.png)
+![ASD](./wwwroot/lib/Read/ASD_MaakBezoek3.png)
+![ASD](./wwwroot/lib/Read/ASD_OverzichtBezoeken.png)
 
 # Webpagina's
 
@@ -51,29 +62,42 @@ Met behulp van design pattern MVC en framework ASP.NET Core is de backoffice geb
 
 ## Inlogscherm
 
+![screenshot](./wwwroot/lib/Read/inlogScreenshot.png)
+
 In het Inlogscherm kan de planner inloggen met zijn gebruikersnaam (email) en wachtwoord.
 
 ## Beheer Klanten/Taken/Medewerkers overzicht
+
+![screenshot](./wwwroot/lib/Read/klantScreenshot.png)
 
 Deze pagina's zijn simpele overzichten van de lijsten met Klanten/Taken/Medewerkers.
 
 ## Klant/Taak/Medewerker Toevoegen
 
+![screenshot](./wwwroot/lib/Read/formScreenshot.png)
+
 Deze pagina's zijn simpele forms om een Klant/Taak/Medewerker toe te voegen.
-
-## Bewerk Taak/Medewerker
-
-Deze twee pagina's zijn simpele bewerkpagina's om taak- of medewerkergegevens aan te passen en/of te verwijderen.
 
 ## Bewerk Klant
 
+![screenshot](./wwwroot/lib/Read/klantEditScreenshot.png)
+
 De Bewerk Klantpagina laat naast de klantgegevens die aangepast en/of verwijderd kunnen worden, ook een lijst met klant-specifieke taken zien. Deze taken kunnen geselecteerd worden uit een algemene takenlijst. Ze kunnen hier vervolgens ook weer verwijderd worden.
 
+## Bewerk Taak/Medewerker
+
+Deze twee pagina's zijn simpele bewerkpagina's om taak- of medewerkergegevens aan te passen en/of te verwijderen. Deze zijn gelijk aan de Bewerk Klant pagina minus de 
+tabel met klant-specifieke taken.
+
 ## Bezoekenoverzicht
+
+![screenshot](./wwwroot/lib/Read/kalenderScreenshot.png)
 
 Het bezoekenoverzicht bestaat uit een kalender met daarin bezoeken gepland die de klantgegevens tonen. Men kan op de link klikken om door te gaan naar het bezoekdetailscherm of men kan een nieuw bezoek plannen door op de knop 'Afspraak Toevoegen' te klikken.
 
 ## Bezoekdetailscherm
+
+![screenshot](./wwwroot/lib/Read/bezoekDetailScreenshot.png)
 
 In het detailscherm kan de planning gemaakt, aangepast, verwijderd of bekeken worden. De planner kan hierin een datum prikken, een klant selecteren uit de klantenlijst en een medewerker selecteren uit de medewerkerslijst. Tevens kunnen handelingen toegevoegd en/of verwijderd worden. Dit kan ofwel door
 * Een taak te kiezen uit de standaard takenlijst

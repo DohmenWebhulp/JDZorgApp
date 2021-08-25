@@ -11,8 +11,7 @@ namespace ZorgAPI.Repositories
         public Task<Handeling> Get(int Id);
         public Task UpdateHandeling(Handeling Handeling);
         public Task UpdateBezoek(Bezoek Bezoek);
-        public Task<Klant> OphalenKlant(int klantId);
-        public Task<Taak> OphalenTaak(int taakId);
         public Task<Medewerker> OphalenMedewerker(int Id);
+        
     }
 }
