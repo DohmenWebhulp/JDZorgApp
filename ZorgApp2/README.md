@@ -114,7 +114,7 @@ De taken van de API zijn als volgt:
 * Valideren van de medewerker die de app start na het token ontvangen te hebben door middel van het Id en GUID.
 
 Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt, gegeven door:
-```
+```JSON
 	{
     "id": 0,
     "gebruikersnaam": "Carla Peters",
