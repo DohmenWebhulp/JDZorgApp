@@ -115,13 +115,84 @@ De taken van de API zijn als volgt:
 
 Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt in JSON formaat, gegeven door:
 ```JSON
+{
     "id": 0,
     "gebruikersnaam": "Carla Peters",
     "wachtwoord": "$2a$11$zDrCKrGKNv8a.meF2rgW6uZtCEv7MyhGGZfx2WUpJyq4Z8u/r8M4e",
     "bezoeken": null
+}
 ```
 Dan stuurt de API vervolgens als antwoord:
-
+```JSON
+    {
+    "id": 6,
+    "guid": "57d71746-1ca0-41a2-bfc1-05a73bf76576",
+    "gebruikersnaam": "Carla Peters",
+    "wachtwoord": "$2a$11$zDrCKrGKNv8a.meF2rgW6uZtCEv7MyhGGZfx2WUpJyq4Z8u/r8M4e",
+    "bezoeken": [
+        {
+            "id": 50,
+            "datum": "2021-08-13T00:00:00",
+            "tijdstip_aanmelden": "00:00:00",
+            "tijdstip_afmelden": "00:00:00",
+            "medewerkerId": 6,
+            "klantId": 11,
+            "klant": {
+                "id": 11,
+                "naam": "Toontje Dohmen",
+                "adres": "Oudeweg 79",
+                "postcode": "8888ZZ",
+                "woonplaats": "Oudewater",
+                "bezoeken": [],
+                "ksTaken": null
+            },
+            "handelingen": [
+                {
+                    "id": 117,
+                    "uitvoering": false,
+                    "taakId": 1,
+                    "bezoekId": 50,
+                    "taak": {
+                        "id": 1,
+                        "omschrijving": "Koffie Zetten",
+                        "extra_info": "Zwart",
+                        "handelingen": [
+                            {
+                                "id": 118,
+                                "uitvoering": false,
+                                "taakId": 1,
+                                "bezoekId": 50
+                            }
+                        ],
+                        "ksTaken": null
+                    }
+                },
+                {
+                    "id": 118,
+                    "uitvoering": false,
+                    "taakId": 1,
+                    "bezoekId": 50,
+                    "taak": {
+                        "id": 1,
+                        "omschrijving": "Koffie Zetten",
+                        "extra_info": "Zwart",
+                        "handelingen": [
+                            {
+                                "id": 117,
+                                "uitvoering": false,
+                                "taakId": 1,
+                                "bezoekId": 50
+                            }
+                        ],
+                        "ksTaken": null
+                    }
+                }
+            ]
+        }
+    ]
+}
+```
+Hiermee wordt vervolgens aan de mobiele kant verder mee gewerkt.
 
 
 
