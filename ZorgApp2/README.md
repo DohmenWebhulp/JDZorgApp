@@ -115,7 +115,12 @@ De taken van de API zijn als volgt:
 
 Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt, gegeven door:
 ```
-	npm install
+	{
+    "id": 0,
+    "gebruikersnaam": "Carla Peters",
+    "wachtwoord": "$2a$11$zDrCKrGKNv8a.meF2rgW6uZtCEv7MyhGGZfx2WUpJyq4Z8u/r8M4e",
+    "bezoeken": null
+}
 ```
 
 
