@@ -113,15 +113,14 @@ De taken van de API zijn als volgt:
 * Ophalen van het token dat bij de medewerker hoort en de volledige informatie inclusief bezoeken over de medewerker terugsturen.
 * Valideren van de medewerker die de app start na het token ontvangen te hebben door middel van het Id en GUID.
 
-Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt, gegeven door:
+Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt in JSON formaat, gegeven door:
 ```JSON
-	{
     "id": 0,
     "gebruikersnaam": "Carla Peters",
     "wachtwoord": "$2a$11$zDrCKrGKNv8a.meF2rgW6uZtCEv7MyhGGZfx2WUpJyq4Z8u/r8M4e",
     "bezoeken": null
-}
 ```
+Dan stuurt de API vervolgens als antwoord:
 
 
 
