@@ -28,7 +28,7 @@ namespace ZorgAPI.Controllers
         //Is er onjuiste informatie verstrekt, volgt een error en kan de medewerker niet verder.
         [HttpPut("{id}")]
         [Route("auth/{id}")]
-        public IActionResult Authenticate(int id, Medewerker mw)
+        public IActionResult Authenticeren(int id, Medewerker mw)
         {
             System.Diagnostics.Debug.WriteLine("Hello");
             var gebruiker = mw.Gebruikersnaam;
@@ -54,6 +54,7 @@ namespace ZorgAPI.Controllers
             var token = new JsonResult(user);
             return token;
         }
+        //Dit is om de medewerkerinformatie op te halen voor testgebruik wat betreft de Authenticeren functie 
         [HttpGet("{id}")]
         [Route("mw2/{id}")]
         public ActionResult<Medewerker> GetMedewerker(int id)

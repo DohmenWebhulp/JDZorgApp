@@ -23,27 +23,6 @@ namespace ZorgAPI.Controllers
             ar = _ar;
         }
 
-        // GET: api/API
-        [HttpGet]
-        public async Task<IEnumerable<Handeling>> GetHandeling()
-        {
-            return await ar.Get();
-        }
-
-        // GET: api/API/5
-        [HttpGet("{id}")]
-        [Route("hand/{id}")]
-        public async Task<ActionResult<Handeling>> GetHandeling(int id)
-        {
-            var handeling = await ar.Get(id);
-
-            if (handeling == null)
-            {
-                return NotFound();
-            }
-
-            return handeling;
-        }
         // GET: api/API/5
         [HttpGet("{id}")]
         [Route("mw/{id}")]
@@ -64,7 +43,7 @@ namespace ZorgAPI.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         [Route("handPut/{id}")]
-        public async Task<IActionResult> PutHandeling(int id, Handeling handeling)
+        public async Task<IActionResult> UpdateHandeling(int id, Handeling handeling)
         {
             if (id != handeling.Id)
             {
@@ -78,7 +57,7 @@ namespace ZorgAPI.Controllers
 
         [HttpPut("{id}")]
         [Route("bezoekPut/{id}")]
-        public async Task<IActionResult> PutBezoek(int id, Bezoek bezoek)
+        public async Task<IActionResult> UpdateBezoek(int id, Bezoek bezoek)
         {
             if (id != bezoek.Id)
             {
