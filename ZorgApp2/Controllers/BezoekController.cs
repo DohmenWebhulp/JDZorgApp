@@ -50,7 +50,7 @@ namespace ZorgApp2.Controllers
             if (id == null)
             {
                 bezoek.KlantId = 11;
-                bezoek.MedewerkerId = 1;
+                bezoek.MedewerkerId = 6;
                 bezoekId = br.ToevoegenBezoek(bezoek).Id;
             }
             else

@@ -1,10 +1,11 @@
-﻿using Org.BouncyCastle.Crypto.Generators;
+﻿using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Crypto.Generators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ZorgAPI.Data;
-using ZorgAPI.Models;
+using ZorgApp2.Models;
 
 namespace ZorgAPI.Repositories
 {
@@ -15,30 +16,47 @@ namespace ZorgAPI.Repositories
         {
             _context = context;
         }
-        public async Task OpslaanUser(string gebruiker, string wachtwoord)
-        {
-            UserMobile user = new UserMobile
-            {
-                Id = Guid.NewGuid(),
-                Gebruikersnaam = gebruiker,
-                Wachtwoord = BCrypt.Net.BCrypt.HashPassword(wachtwoord)
-            };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-        }
 
-        public bool CheckUser(Guid? id, UserMobile user, string wachtwoord)
+        public bool CheckUser(Medewerker user, string wachtwoord)
         {
-            if (user == null || !BCrypt.Net.BCrypt.Verify(wachtwoord, user.Wachtwoord) 
-                             || (user.Id != id && user.Id != null))
+            if (user == null || BCrypt.Net.BCrypt.Verify(wachtwoord, user.Wachtwoord))               
             {
                 return false;
             }
             return true;
         }
-        public UserMobile OphalenUser(string gebruiker)
+
+        public bool CheckGuid(Medewerker user, Guid guid)
         {
-            var user = _context.Users.Find(gebruiker);
+            if(user.GUID != guid && user.GUID != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public Medewerker OphalenMedewerkerOpUsername(string gebruiker)
+        {
+            return _context.Medewerker.Include(m => m.Bezoeken).ThenInclude(b => b.Handelingen).ThenInclude(h => h.Taak)
+                                            .Include(m => m.Bezoeken).ThenInclude(b => b.Klant)
+                                            .FirstOrDefault(m => m.Gebruikersnaam == gebruiker);
+        }
+        public Medewerker OphalenMedewerkerOpId(int id)
+        {
+            return _context.Medewerker.Include(m => m.Bezoeken).ThenInclude(b => b.Handelingen).ThenInclude(h => h.Taak)
+                                            .Include(m => m.Bezoeken).ThenInclude(b => b.Klant)
+                                            .FirstOrDefault(m => m.Id == id);
+        }
+
+        public Medewerker OphalenUser(string gebruiker)
+        {
+            var user = _context.Medewerker.Find(gebruiker);
+            return user;
+        }
+
+        public Medewerker OphalenUser2(int id)
+        {
+            var user = _context.Medewerker.Find(id);
             return user;
         }
     }

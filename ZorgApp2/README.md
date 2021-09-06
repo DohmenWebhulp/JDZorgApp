@@ -100,11 +100,23 @@ Het bezoekenoverzicht bestaat uit een kalender met daarin bezoeken gepland die d
 ![screenshot](./wwwroot/lib/Read/bezoekDetailScreenshot.PNG)
 
 In het detailscherm kan de planning gemaakt, aangepast, verwijderd of bekeken worden. De planner kan hierin een datum prikken, een klant selecteren uit de klantenlijst en een medewerker selecteren uit de medewerkerslijst. Tevens kunnen handelingen toegevoegd en/of verwijderd worden. Dit kan ofwel door
-* Een taak te kiezen uit de standaard takenlijst
+* Een taak te kiezen uit de standaard takenlijst.
 * Een klant te kiezen uit de standaard klantenlijst, waardoor de klant-specifieke taken automatisch toegevoegd worden aan de lijst met handelingen.
 
+## API
 
+De API zorgt voor de communicatie tussen Backoffice en de Mobiele app.
+De taken van de API zijn als volgt:
+* Updaten van de handelingen die afgevinkt zijn in de mobiele app door de medewerker.
+* Updaten van het bezoek wat betreft de tijdstippen van aan- en afmelden door de medewerker in de mobiele app.
+* Valideren van de medewerker die inlogt met gebruikersnaam en wachtwoord.
+* Ophalen van het token dat bij de medewerker hoort en de volledige informatie inclusief bezoeken over de medewerker terugsturen.
+* Valideren van de medewerker die de app start na het token ontvangen te hebben door middel van het Id en GUID.
 
+Als men in Postman de gebruikersnaam en wachtwoord van de medewerker opstuurt, gegeven door:
+```
+	npm install
+```
 
 
 

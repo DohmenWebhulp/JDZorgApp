@@ -6,7 +6,6 @@ using ZorgAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using ZorgApp2.Models;
 using Microsoft.AspNetCore.Identity;
-using ZorgAPI.Models;
 
 namespace ZorgAPI.Repositories
 {
@@ -27,7 +26,6 @@ namespace ZorgAPI.Repositories
         {
             return await _context.Handeling.FindAsync(Id);
         }
-
         public async Task<Medewerker> OphalenMedewerker(int Id)
         {
             return await _context.Medewerker.Include(m => m.Bezoeken).ThenInclude(b => b.Handelingen).ThenInclude(h => h.Taak)

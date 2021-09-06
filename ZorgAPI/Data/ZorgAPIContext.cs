@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ZorgAPI.Models;
 using ZorgApp2.Models;
 namespace ZorgAPI.Data
 {
@@ -21,6 +20,5 @@ namespace ZorgAPI.Data
         public DbSet<KSTaak> KSTaak { get; set; }
         public DbSet<Handeling> Handeling { get; set; }
         public DbSet<Bezoek> Bezoek { get; set; }
-        public DbSet<UserMobile> Users { get; set; }
     }
 }

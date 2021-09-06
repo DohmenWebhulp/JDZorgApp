@@ -12,6 +12,6 @@ namespace ZorgAPI.Repositories
         public Task UpdateHandeling(Handeling Handeling);
         public Task UpdateBezoek(Bezoek Bezoek);
         public Task<Medewerker> OphalenMedewerker(int Id);
-        
+
     }
 }

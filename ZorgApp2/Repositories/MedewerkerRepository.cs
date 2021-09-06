@@ -37,9 +37,15 @@ namespace ZorgApp2.Repositories
 
         public Medewerker ToevoegenMedewerker(Medewerker Medewerker)
         {
-            _context.Medewerker.Add(Medewerker);
+            Medewerker mw = new Medewerker
+            {
+                GUID = Guid.NewGuid(),
+                Gebruikersnaam = Medewerker.Gebruikersnaam,
+                Wachtwoord = BCrypt.Net.BCrypt.HashPassword(Medewerker.Wachtwoord)
+            };
+            _context.Medewerker.Add(mw);
             _context.SaveChanges();
-            return Medewerker;
+            return mw;
         }
 
         public Medewerker VerwijderMedewerker(int mwId)
